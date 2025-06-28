@@ -2,6 +2,7 @@ import unittest
 from app.service.core import Calculator
 from app.utils.exceptions import CustomException
 
+
 class TestCalculator(unittest.TestCase):
 
     def setUp(self):
@@ -55,6 +56,7 @@ class TestCalculator(unittest.TestCase):
 
     def test_div_result_precision(self):
         self.assertEqual(self.calc.div(1, 3), 0.3333)
+
 
 if __name__ == '__main__':
     unittest.main()

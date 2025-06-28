@@ -6,9 +6,11 @@ from app.utils.exceptions import CustomException
 router = APIRouter()
 calc = Calculator()
 
+
 class CalcRequest(BaseModel):
     a: float
     b: float
+
 
 @router.get("/health", tags=["Health Check"])
 def health_check():
@@ -19,13 +21,16 @@ def health_check():
 def add(req: CalcRequest):
     return {"result": calc.add(req.a, req.b)}
 
+
 @router.post("/sub")
 def sub(req: CalcRequest):
     return {"result": calc.sub(req.a, req.b)}
 
+
 @router.post("/mul")
 def mul(req: CalcRequest):
     return {"result": calc.mul(req.a, req.b)}
+
 
 @router.post("/div")
 def div(req: CalcRequest):
