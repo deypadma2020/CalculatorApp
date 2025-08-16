@@ -11,8 +11,8 @@ num2 = st.number_input("Enter second number", value=0.0)
 # Dropdown for operation
 operation = st.selectbox("Choose Operation", ["add", "sub", "mul", "div"])
 
-# Backend API base URL
-API_URL = "http://localhost:8000/api/v1"
+# Backend API base URL (use deployed Render URL instead of localhost)
+API_URL = "https://calculatorapp-pbbw.onrender.com/api/v1"
 
 # Submit button
 if st.button("Calculate"):
