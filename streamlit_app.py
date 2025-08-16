@@ -1,8 +1,7 @@
 import streamlit as st
-import requests
 
-st.set_page_config(page_title="Calculator API UI", layout="centered")
-st.title("🧮 FastAPI-Powered Calculator")
+st.set_page_config(page_title="Calculator UI", layout="centered")
+st.title("🧮 Standalone Calculator")
 
 # Input fields
 num1 = st.number_input("Enter first number", value=0.0)
@@ -11,22 +10,24 @@ num2 = st.number_input("Enter second number", value=0.0)
 # Dropdown for operation
 operation = st.selectbox("Choose Operation", ["add", "sub", "mul", "div"])
 
-# Backend API base URL (use deployed Render URL instead of localhost)
-API_URL = "https://calculatorapp-pbbw.onrender.com/api/v1"
-
 # Submit button
 if st.button("Calculate"):
-    payload = {"a": num1, "b": num2}
-
     try:
-        # Send request to FastAPI backend based on selected operation
-        response = requests.post(f"{API_URL}/{operation}", json=payload)
-        response.raise_for_status()
-        result = response.json().get("result")
+        result = None
+        if operation == "add":
+            result = num1 + num2
+        elif operation == "sub":
+            result = num1 - num2
+        elif operation == "mul":
+            result = num1 * num2
+        elif operation == "div":
+            if num2 == 0:
+                st.error("❌ Division by zero is not allowed")
+            else:
+                result = num1 / num2
 
-        st.success(f"✅ Result: {result}")
+        if result is not None:
+            st.success(f"✅ Result: {result}")
 
-    except requests.exceptions.HTTPError as http_err:
-        st.error(f"❌ HTTP error: {http_err}")
     except Exception as e:
         st.error(f"❌ Error: {e}")
