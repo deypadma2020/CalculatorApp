@@ -1,10 +1,21 @@
 # Makefile for Calculator Project
 
-.PHONY: run test unit-test api-test lint format clean docker docker-up docker-down
+.PHONY: run ui dev test unit-test api-test lint format clean docker docker-up docker-down
 
 ## Run FastAPI app with Uvicorn
 run:
 	uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+## Run Streamlit UI
+ui:
+	streamlit run streamlit_app.py
+
+## Run FastAPI (backend) + Streamlit (frontend) together
+dev:
+	@echo "🚀 Starting FastAPI backend + Streamlit frontend..."
+	@gnome-terminal -- bash -c "uvicorn main:app --reload --host 0.0.0.0 --port 8000; exec bash" || \
+	start cmd /k "uvicorn main:app --reload --host 0.0.0.0 --port 8000" &
+	@streamlit run streamlit_app.py
 
 ## Run all tests with coverage report
 test:
